@@ -10,7 +10,12 @@ db.once("open", () => {
 
 const campground = require("../models/campground");
 const cities = require("./cities");
-const { descriptors, places } = require("./seedHelpers");
+const {
+    descriptors,
+    places,
+    imageLinks,
+    descriptions,
+} = require("./seedHelpers");
 
 const seedDB = async () => {
     await campground.deleteMany({});
@@ -18,9 +23,13 @@ const seedDB = async () => {
         const random50 = Math.floor(Math.random() * 50);
         const randomDesc = Math.floor(Math.random() * 20);
         const randomPlace = Math.floor(Math.random() * 20);
+        const price = Math.floor(Math.random() * 20) + 10;
         const camp = new campground({
             location: `${cities[random50].city}, ${cities[random50].state}`,
             title: `${descriptors[randomDesc]} ${places[randomPlace]}`,
+            image: `${imageLinks[i % 30]}`,
+            description: `${descriptions[i % 20]}`,
+            price,
         });
         await camp.save();
     }

@@ -20,6 +20,10 @@ db.once("open", () => {
     console.log("database connected");
 });
 
+//ejs-mate
+const ejsMate = require("ejs-mate");
+app.engine("ejs", ejsMate);
+
 //method-override for put,delete requests
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
@@ -63,7 +67,7 @@ app.put("/campgrounds/:id", async (req, res) => {
         new: true,
         runValidators: true,
     });
-    res.redirect(`/campgrounds/${id}    `);
+    res.redirect(`/campgrounds/${id}`);
 });
 
 //delete a campground
